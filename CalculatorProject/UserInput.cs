@@ -106,7 +106,7 @@ class UserInput
             bool positiveNegativeNums = splitInput[i].Contains("-");
             bool negativeNum = splitInput[i].ToString().Any(char.IsDigit) && splitInput[i - 1].Contains('-');
             bool decimalNum = splitInput[i].ToString().Any(char.IsDigit) && splitInput[i - 1].Contains(',');
-            bool twoComas = splitInput[i].ToString().Any(char.IsDigit) && splitInput[i].ToString().Contains(",") && splitInput[i - 1].Contains(',');
+            bool twoComas = splitInput[i].ToString().Contains(",") && splitInput[i - 1].Contains(',');
 
             if (twoComas)
             {
@@ -118,11 +118,6 @@ class UserInput
             {
                
                 splitInput[i-1] += splitInput[i].ToString();
-                splitInput.RemoveAt(i);
-            }
-            else if (splitInput[i].ToString().Any(char.IsDigit) && splitInput[i - 1].Contains(','))
-            {
-                splitInput[i - 1] += splitInput[i].ToString();
                 splitInput.RemoveAt(i);
             }
         }
@@ -142,6 +137,8 @@ class UserInput
             userInput = userInput.Replace("//", "/");
             userInput = userInput.Replace("^^", "^");
             userInput = userInput.Replace("..", ".");
+            userInput = userInput.Replace(",,", ",");
+
         }
         userInput = userInput.Replace(".", ",");
         userInput = userInput.Replace("ans", "%");
